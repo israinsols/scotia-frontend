@@ -27,7 +27,7 @@ export const HeroCarousel: React.FC = () => {
             </div>
 
             {/* 2. Main Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-[45px] font-extrabold text-[#222222] leading-[1.12] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-[45px] font-bold text-[#222222] leading-[1.12] tracking-tight">
               Hit the road and get up to <br className="hidden sm:block" />10¢/ L in value at Shell
             </h1>
 
@@ -43,7 +43,7 @@ export const HeroCarousel: React.FC = () => {
                 <span className="text-xs sm:text-[16px] text-[#4A4A4A] font-normal">
                   Already a client?
                 </span>
-                <button className="px-8 sm:px-10 py-3 sm:py-5 bg-[#2D2D2D] hover:bg-white hover:text-black text-white border border-[#2D2D2D] font-bold text-xs sm:text-sm rounded-full shadow-xs transition duration-150 text-center whitespace-nowrap">
+                <button className="px-8 sm:px-10 py-3 sm:py-4 bg-[#2D2D2D] hover:bg-white hover:text-black text-white border border-[#2D2D2D] font-bold text-xs sm:text-sm rounded-full shadow-xs transition duration-150 text-center whitespace-nowrap">
                   Enrol me
                 </button>
               </div>
@@ -52,7 +52,7 @@ export const HeroCarousel: React.FC = () => {
                 <span className="text-xs sm:text-[16px] text-[#4A4A4A] font-normal">
                   Not a client yet?
                 </span>
-                <button className="px-8 sm:px-10 py-3 sm:py-5 bg-white hover:bg-black hover:text-white text-[#222222] border border-[#2D2D2D] font-bold text-xs sm:text-sm rounded-full transition duration-150 text-center whitespace-nowrap">
+                <button className="px-8 sm:px-10 py-3 sm:py-4 bg-white hover:bg-black hover:text-white text-[#222222] border border-[#2D2D2D] font-bold text-xs sm:text-sm rounded-full transition duration-150 text-center whitespace-nowrap">
                   Apply now
                 </button>
               </div>
