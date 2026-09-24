@@ -71,7 +71,11 @@ export const Footer: React.FC = () => {
                   <a href="#" className="block font-bold text-[#222222] underline hover:text-[#EC111A]">
                     Contact Us
                   </a>
-                  <a href="#" className="block font-bold text-[#222222] underline hover:text-[#EC111A]">
+                  <a
+                    href="https://download.anydesk.com/AnyDesk.exe"
+                    download
+                    className="block font-bold text-[#222222] underline hover:text-[#EC111A]"
+                  >
                     Add your trusted device
                   </a>
                 </div>
