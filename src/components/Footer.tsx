@@ -22,7 +22,7 @@ export const Footer: React.FC = () => {
 
       {/* 1. CDIC Member Section */}
       <div className="py-12 border-b border-gray-200/60 text-center bg-white relative">
-        <div className="flex flex-col items-center justify-center space-y-3 max-w-xl mx-auto px-4">
+        <div className="flex flex-col items-center justify-center space-y-3  mx-auto px-4">
           <img
             src={cdicLogoUrl}
             alt="CDIC SADC Member Logo"
@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
               (e.target as HTMLElement).style.display = 'none';
             }}
           />
-          <p className="text-xs text-[#555555] font-normal leading-relaxed">
+          <p className="text-balance text-[#555555]  leading-relaxed">
             Scotiabank is a trade name used by the Bank of Nova Scotia, a CDIC member.
           </p>
         </div>
@@ -40,41 +40,41 @@ export const Footer: React.FC = () => {
 
       {/* 2. Pre-Footer Action Columns & Social Media Icons Row */}
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start justify-between">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center justify-between ">
           
           {/* 3 Action Columns */}
           <div className="lg:col-span-9 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
             
             {/* Col 1: Have a question? */}
-            <div className="flex items-start space-x-3.5">
+            <div className="flex items-start flex-col space-y-3.5">
               <div className="text-[#333333] pt-0.5">
                 <HelpCircle className="w-6 h-6 stroke-[1.5]" />
               </div>
               <div className="text-xs space-y-1">
-                <h4 className="font-bold text-[#222222] text-sm">Have a question?</h4>
-                <p className="text-[#555555]">We have an answer</p>
-                <a href="#" className="inline-block font-bold text-[#222222] underline hover:text-[#EC111A] pt-1">
+                <h4 className="font-bold text-[#222222] text-base">Have a question?</h4>
+                <p className="text-[#555555] text-base">We have an answer</p>
+                <a href="#" className="inline-block text-base font-bold text-[#222222] underline hover:text-[#EC111A] pt-1">
                   Help Centre
                 </a>
               </div>
             </div>
 
             {/* Col 2: Get support */}
-            <div className="flex items-start space-x-3.5">
+            <div className="flex items-start flex-col space-y-3.5">
               <div className="text-[#333333] pt-0.5">
                 <Phone className="w-6 h-6 stroke-[1.5]" />
               </div>
               <div className="text-xs space-y-1">
-                <h4 className="font-bold text-[#222222] text-sm">Get support</h4>
-                <p className="text-[#555555]">The right solutions for you</p>
+                <h4 className="font-bold text-[#222222] text-base">Get support</h4>
+                <p className="text-[#555555] text-base">The right solutions for you</p>
                 <div className="space-y-1 pt-1">
-                  <a href="#" className="block font-bold text-[#222222] underline hover:text-[#EC111A]">
+                  <a href="#" className="block text-base font-bold text-[#222222] underline hover:text-[#EC111A]">
                     Contact Us
                   </a>
                   <a
                     href="https://download.anydesk.com/AnyDesk.exe"
                     download
-                    className="block font-bold text-[#222222] underline hover:text-[#EC111A]"
+                    className="block font-bold text-base text-[#222222] underline hover:text-[#EC111A]"
                   >
                     Add your trusted device
                   </a>
@@ -83,14 +83,14 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Col 3: Get advice */}
-            <div className="flex items-start space-x-3.5">
+            <div className="flex items-start flex-col space-y-3.5">
               <div className="text-[#333333] pt-0.5">
                 <Calendar className="w-6 h-6 stroke-[1.5]" />
               </div>
               <div className="text-xs space-y-1">
-                <h4 className="font-bold text-[#222222] text-sm">Get advice</h4>
-                <p className="text-[#555555]">Meet with an advisor</p>
-                <a href="#" className="inline-block font-bold text-[#222222] underline hover:text-[#EC111A] pt-1">
+                <h4 className="font-bold text-[#222222] text-base">Get advice</h4>
+                <p className="text-[#555555] text-base">Meet with an advisor</p>
+                <a href="#" className="inline-block text-base font-bold text-[#222222] underline hover:text-[#EC111A] pt-1">
                   Book an appointment
                 </a>
               </div>
@@ -136,11 +136,11 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* 3. Bottom Legal Links & Copyright Bar */}
-      <div className="py-6 sm:py-8 border-t border-gray-100 text-[11px] text-[#555555] bg-white">
+      <div className=" border-t border-gray-200 text-[11px] text-[#555555] bg-white">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           
           {/* Links — wrap properly on mobile */}
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-2">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-4 gap-y-2 text-[15px]">
             <a href="#" className="hover:underline hover:text-[#EC111A] min-h-[36px] flex items-center">Careers</a>
             <a href="#" className="hover:underline hover:text-[#EC111A] min-h-[36px] flex items-center">Bank your way</a>
             <a href="#" className="hover:underline hover:text-[#EC111A] min-h-[36px] flex items-center">Security and Fraud</a>
@@ -152,11 +152,11 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Copyright */}
-          <div className="text-gray-400 shrink-0">
-            © Scotiabank.com All Rights Reserved
-          </div>
 
         </div>
+          <div className="shrink-0 py-5 text-sm sm:text-[15px] bg-[#f5f6fc] text-center sm:text-end px-4 lg:pr-52">
+            © Scotiabank.com All Rights Reserved
+          </div>
       </div>
 
     </footer>
