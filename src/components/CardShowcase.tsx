@@ -17,15 +17,15 @@ export const CardShowcase: React.FC = () => {
     {
       title: 'Scotia Momentum® Visa Infinite +* Card',
       linkText: 'Explore this card',
-      bgImage: 'https://www.scotiabank.com/content/dam/scotia-project-checkout/canada/images/credit-cards/visa/scotia-momentum-visa-infinite/campaigns/05-2026/groceries/Groceries_416x528.png',
-      cardArtImage: 'https://www.scotiabank.com/content/dam/scotia-project-checkout/canada/images/credit-cards/visa/scotia-momentum-visa-infinite/cards/Momentum-Infinite-Plus-Card-EN.png',
+      bgImage: 'https://www.scotiabank.com/content/dam/scotia-project-checkout/canada/images/d2d/savings-accounts/high-interest-savings-account/hisa_hero_banner.png',
+      cardArtImage: null, // removed for this card
     },
   ];
 
   return (
     <section className="bg-[#F8F9FA] py-10 sm:py-16 font-sans">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Title */}
         <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-center text-[#222222] mb-7 sm:mb-10 tracking-tight">
           You may be interested in
@@ -45,14 +45,16 @@ export const CardShowcase: React.FC = () => {
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
 
-              {/* Floating Official Credit Card Art Image */}
-              <div className="relative z-10 pt-14 flex justify-center">
-                <img
-                  src={card.cardArtImage}
-                  alt={card.title}
-                  className="w-56 h-auto drop-shadow-2xl transition-transform duration-300 group-hover:-translate-y-1 object-contain"
-                />
-              </div>
+              {/* Floating Official Credit Card Art Image (only if provided) */}
+              {card.cardArtImage && (
+                <div className="relative z-10 pt-14 flex justify-center">
+                  <img
+                    src={card.cardArtImage}
+                    alt={card.title}
+                    className="w-56 h-auto drop-shadow-2xl transition-transform duration-300 group-hover:-translate-y-1 object-contain"
+                  />
+                </div>
+              )}
 
               {/* Bottom Dark Translucent Box */}
               <div className="relative z-10 bg-[#1A1A1A]/50 backdrop-blur-xs p-6 text-white border-t border-white/10 mt-auto min-h-[135px] flex flex-col justify-between">
@@ -71,4 +73,4 @@ export const CardShowcase: React.FC = () => {
       </div>
     </section>
   );
-};
+};  
