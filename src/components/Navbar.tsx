@@ -619,9 +619,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
                         setSearchQuery(item);
                         setIsSearchFocused(false);
                       }}
-                      className="w-full text-left py-2.5 px-1 hover:bg-gray-50/80 transition flex items-center justify-between"
+                      className="w-full text-left py-2.5 px-1 transition flex items-center justify-between"
                     >
-                      <span className="text-[14px] font-normal text-[#222222] border-b border-dotted border-gray-700">
+                      <span className="text-[14px] font-normal text-[#222222] hover:border-b border-dotted border-gray-700">
                         {item}
                       </span>
                     </button>
