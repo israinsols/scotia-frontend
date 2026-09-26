@@ -338,7 +338,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
           
           {/* Top Tabs */}
           <div className="flex justify-center border-b border-gray-200 mb-8 overflow-x-auto scrollbar-none">
-            <div className="flex space-x-6 sm:space-x-10 text-xs font-medium">
+            <div className="flex space-x-6 sm:space-x-10 text-[14px] font-medium">
               {tabs.map((tab) => (
                 <button
                   key={tab}
@@ -357,7 +357,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
 
           {/* Section Heading & Subtitle */}
           <div className="text-center max-w-2xl mx-auto mb-10 space-y-1">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#222222] tracking-tight">
+            <h2 className=" sm:text-4xl font-bold text-[#222222] ">
               {activeTab === 'Accounts' 
                 ? 'Accounts' 
                 : activeTab === 'Credit cards' 
@@ -370,7 +370,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                 ? 'Learning'
                 : 'Featured'}
             </h2>
-            <p className="text-xs sm:text-sm text-[#555555] font-normal">
+            <p className="text-xs sm:text-lg text-[#555555] ">
               {activeTab === 'Accounts'
                 ? 'Keep your finances on track with an account that gives you flexibility and control over your money.'
                 : activeTab === 'Credit cards'
@@ -388,14 +388,14 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
           {/* LEARNING TAB VIEW */}
           {activeTab === 'Learning' ? (
             <div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1060px] mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1160px] mx-auto">
                 {learningCards.map((card, idx) => (
                   <div
                     key={idx}
-                    className="bg-white border border-gray-200/90 rounded-xl overflow-hidden shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between"
+                    className="bg-white border border-gray-200/90 rounded-xl overflow-hidden shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between min-h-[440px] sm:min-h-[470px]"
                   >
                     <div>
-                      <div className="relative h-48 overflow-hidden bg-gray-100">
+                      <div className="relative h-52 overflow-hidden bg-gray-100">
                         <img
                           src={card.image}
                           alt={card.title}
@@ -409,11 +409,11 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                       </div>
 
                       <div className="p-5 space-y-2">
-                        <h3 className="text-sm sm:text-base font-bold text-[#222222] leading-snug">
+                        <h3 className="text-lg sm:text-lg font-bold text-[#222222] leading-snug">
                           {card.title}
                         </h3>
                         {card.description && (
-                          <p className="text-xs text-[#555555] leading-relaxed font-normal">
+                          <p className="text-balance text-[#555555] leading-relaxed font-normal">
                             {card.description}
                           </p>
                         )}
@@ -421,9 +421,9 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                     </div>
 
                     <div className="p-5 pt-0 mt-auto">
-                      <button className="inline-flex items-center text-xs font-bold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
+                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
                         <span>{card.linkText}</span>
-                        <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                        <ChevronRight className="ml-0.5" />
                       </button>
                     </div>
 
@@ -432,7 +432,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
               </div>
 
               <div className="mt-12 flex justify-center pt-2">
-                <button className="bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-xs px-8 py-3 rounded-md shadow-xs transition">
+                <button className="bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-sm px-8 py-5 rounded-md shadow-xs transition">
                   Go to Advice+
                 </button>
               </div>
@@ -440,14 +440,14 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
           ) : activeTab === 'Investments' ? (
             /* INVESTMENTS TAB VIEW */
             <div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1060px] mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1160px] mx-auto">
                 {investmentsCards.map((card, idx) => (
                   <div
                     key={idx}
-                    className="bg-white border border-gray-200/90 rounded-xl overflow-hidden shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between"
+                    className="bg-white border border-gray-200/90 rounded-xl shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between min-h-[460px] sm:min-h-[490px]"
                   >
                     <div>
-                      <div className="relative h-48 overflow-hidden bg-gray-100">
+                      <div className="relative h-52 bg-gray-100">
                         <img
                           src={card.image}
                           alt={card.title}
@@ -459,21 +459,21 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                           }}
                         />
                         {card.category && (
-                          <span className="absolute top-3 left-3 bg-[#EC111A] text-white text-[9px] font-extrabold px-2 py-0.5 rounded tracking-wider uppercase shadow-xs">
+                          <span className="absolute -top-2 left-3 bg-[#EC111A] text-white text-[12px] font-bold px-2 py-1 rounded tracking-wider uppercase shadow-xs">
                             {card.category}
                           </span>
                         )}
                       </div>
 
                       <div className="p-5 space-y-2.5">
-                        <h3 className="text-sm sm:text-base font-bold text-[#222222] leading-snug">
+                        <h3 className="text-lg sm:text-lg font-bold text-[#222222] leading-snug">
                           {card.title}
                         </h3>
-                        <p className="text-xs text-[#555555] leading-relaxed font-normal">
+                        <p className="text-balance text-[#555555] leading-relaxed font-normal">
                           {card.description}
                         </p>
                         {card.extraOffer && (
-                          <div className="pt-2 text-xs font-bold text-[#222222] leading-snug">
+                          <div className="pt-2 text-balance font-semibold text-[#222222] leading-snug">
                             {card.extraOffer.split('\n').map((line, lIdx) => (
                               <p key={lIdx}>{line}</p>
                             ))}
@@ -483,9 +483,9 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                     </div>
 
                     <div className="p-5 pt-0 mt-auto">
-                      <button className="inline-flex items-center text-xs font-bold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
+                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
                         <span>{card.linkText}</span>
-                        <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                        <ChevronRight className="ml-0.5" />
                       </button>
                     </div>
 
@@ -494,24 +494,24 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
               </div>
 
               <div className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
-                <button className="w-full sm:w-auto bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-xs px-7 py-3 rounded-md shadow-xs transition">
+                <button className="w-full sm:w-auto bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-balance px-7 py-5 rounded-md shadow-xs transition">
                   View all investment plans
                 </button>
-                <button className="w-full sm:w-auto bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-xs px-7 py-3 rounded-md shadow-xs transition">
+                <button className="w-full sm:w-auto bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-balance px-7 py-5 rounded-md shadow-xs transition">
                   View all investment products
                 </button>
               </div>
             </div>
           ) : activeTab === 'Borrowing' ? (
             /* BORROWING TAB VIEW */
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1060px] mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1160px] mx-auto">
               {borrowingCards.map((card, idx) => (
                 <div
                   key={idx}
-                  className="bg-white border border-gray-200/90 rounded-xl overflow-hidden shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between"
+                  className="bg-white border border-gray-200/90 rounded-xl overflow-hidden shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between min-h-[440px] sm:min-h-[470px]"
                 >
                   <div>
-                    <div className="relative h-48 overflow-hidden bg-gray-100">
+                    <div className="relative h-52 overflow-hidden bg-gray-100">
                       <img
                         src={card.image}
                         alt={card.title}
@@ -525,10 +525,10 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                     </div>
 
                     <div className="p-5 space-y-2">
-                      <h3 className="text-sm sm:text-base font-bold text-[#222222] leading-snug">
+                      <h3 className="text-lg sm:text-lg font-bold text-[#222222] leading-snug">
                         {card.title}
                       </h3>
-                      <p className="text-xs text-[#555555] leading-relaxed font-normal">
+                      <p className="text-balance text-[#555555] leading-relaxed font-normal">
                         {card.description}
                       </p>
                     </div>
@@ -537,10 +537,10 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                   <div className="p-5 pt-0 mt-auto">
                     <button
                       onClick={card.linkAction}
-                      className="inline-flex items-center text-xs font-bold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors"
+                      className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors"
                     >
                       <span>{card.linkText}</span>
-                      <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                      <ChevronRight className="ml-0.5" />
                     </button>
                   </div>
 
@@ -550,16 +550,16 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
           ) : activeTab === 'Credit cards' ? (
             /* CREDIT CARDS TAB VIEW */
             <div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1060px] mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1160px] mx-auto">
                 {creditCardsCards.map((card, idx) => (
                   <div
                     key={idx}
-                    className="bg-white border border-gray-200/90 rounded-xl overflow-hidden shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between"
+                    className="bg-white border border-gray-200/90 rounded-xl shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between min-h-[540px] sm:min-h-[580px]"
                   >
                     <div>
                       <div className="relative h-64 bg-[#F2F4F7] flex items-center justify-center p-4 border-b border-gray-100">
                         {card.category && (
-                          <span className="absolute top-3 left-3 bg-[#1A1A1A] text-white text-[9px] font-extrabold px-2 py-0.5 rounded tracking-wider uppercase z-10">
+                          <span className="absolute -top-3 left-3 bg-[#1A1A1A] text-white text-[12px] font-bold px-2 py-0.5 rounded tracking-wider uppercase z-10">
                             {card.category}
                           </span>
                         )}
@@ -571,22 +571,22 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                       </div>
 
                       <div className="p-5 space-y-3">
-                        <h3 className="text-sm font-bold text-[#222222] leading-snug">
+                        <h3 className="text-lg sm:text-lg font-bold text-[#222222] leading-snug text-center">
                           {card.title}
                         </h3>
 
-                        <div className="space-y-1 text-[11px] text-[#4A4A4A] leading-relaxed">
+                        <div className="space-y-1 text-[18px] text-[#4A4A4A] leading-relaxed">
                           <p className="font-bold text-[#222222]">Special offer:</p>
                           <p>{card.offer}</p>
                         </div>
 
-                        <div className="pt-2 border-t border-gray-100 space-y-0.5 text-[11px] text-[#555555]">
+                        <div className="pt-2 border-t border-gray-100 space-y-0.5 text-[17px] text-[#555555]">
                           <p>
-                            <span className="font-medium text-[#222222]">Annual fee:</span>{' '}
-                            <span className="font-bold text-[#222222]">{card.fee}</span>
+                            <span className=" text-[#222222]">Annual fee:</span>{' '}
+                            <span className="font-semibold text-[#222222]">{card.fee}</span>
                           </p>
                           <p>
-                            <span className="font-medium text-[#222222]">Interest rates:</span>{' '}
+                            <span className=" text-[#222222]">Interest rates:</span>{' '}
                             <span>{card.rates}</span>
                           </p>
                         </div>
@@ -594,9 +594,9 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                     </div>
 
                     <div className="p-5 pt-0 mt-auto">
-                      <button className="inline-flex items-center text-xs font-bold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
+                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
                         <span>{card.linkText}</span>
-                        <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                        <ChevronRight className=" ml-0.5" />
                       </button>
                     </div>
 
@@ -605,7 +605,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
               </div>
 
               <div className="mt-12 flex justify-center pt-2">
-                <button className="bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-xs px-8 py-3 rounded-md shadow-xs transition">
+                <button className="bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-sm px-8 py-5 rounded-md shadow-xs transition">
                   Browse all credit cards
                 </button>
               </div>
@@ -613,14 +613,14 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
           ) : activeTab === 'Accounts' ? (
             /* ACCOUNTS TAB VIEW */
             <div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1060px] mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1160px] mx-auto">
                 {accountsCards.map((card, idx) => (
                   <div
                     key={idx}
-                    className="bg-white border border-gray-200/90 rounded-xl overflow-hidden shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between"
+                    className="bg-white border border-gray-200/90 rounded-xl overflow-hidden shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between min-h-[440px] sm:min-h-[470px]"
                   >
                     <div>
-                      <div className="relative h-48 overflow-hidden bg-gray-100">
+                      <div className="relative h-52 overflow-hidden bg-gray-100">
                         <img
                           src={card.image}
                           alt={card.title}
@@ -633,18 +633,18 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                         />
                       </div>
                       <div className="p-5 space-y-2">
-                        <h3 className="text-sm sm:text-base font-bold text-[#222222] leading-snug">
+                        <h3 className="text-lg sm:text-lg font-bold text-[#222222] leading-snug">
                           {card.title}
                         </h3>
-                        <p className="text-xs text-[#555555] leading-relaxed font-normal">
+                        <p className="text-balance text-[#555555] leading-relaxed font-normal">
                           {card.description}
                         </p>
                       </div>
                     </div>
                     <div className="p-5 pt-0 mt-auto">
-                      <button className="inline-flex items-center text-xs font-bold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
+                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
                         <span>{card.linkText}</span>
-                        <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                        <ChevronRight className=" ml-0.5" />
                       </button>
                     </div>
                   </div>
@@ -652,24 +652,24 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
               </div>
 
               <div className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
-                <button className="w-full sm:w-auto bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-xs px-7 py-3 rounded-md shadow-xs transition">
+                <button className="w-full sm:w-auto bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-sm px-7 py-5 rounded-md shadow-xs transition">
                   View all bank accounts
                 </button>
-                <button className="w-full sm:w-auto bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-xs px-7 py-3 rounded-md shadow-xs transition">
+                <button className="w-full sm:w-auto bg-[#EC111A] hover:bg-[#C40912] text-white font-bold text-sm px-7 py-5 rounded-md shadow-xs transition">
                   View all savings accounts
                 </button>
               </div>
             </div>
           ) : (
             /* FEATURED TAB VIEW */
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1060px] mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1160px] mx-auto">
               {featuredCards.map((card, idx) => (
                 <div
                   key={idx}
-                  className="bg-white border border-gray-200/90 rounded-xl overflow-hidden shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between"
+                  className="bg-white border border-gray-200/90 rounded-xl shadow-2xs hover:shadow-lg transition-shadow duration-300 flex flex-col justify-between min-h-[440px] sm:min-h-[470px]"
                 >
                   <div>
-                    <div className="relative h-48 overflow-hidden bg-gray-100">
+                    <div className="relative h-52 bg-gray-100">
                       <img
                         src={card.image}
                         alt={card.title}
@@ -681,17 +681,17 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                         }}
                       />
                       {card.category && (
-                        <span className="absolute top-3 left-3 bg-[#005B94] text-white text-[9px] font-extrabold px-2 py-0.5 rounded tracking-wider uppercase shadow-xs">
+                        <span className="absolute -top-3 z-40 left-3 bg-[#005B94] text-white text-[12px] font-bold px-2 py-1 rounded-sm tracking-wider uppercase shadow-xs">
                           {card.category}
                         </span>
                       )}
                     </div>
 
-                    <div className="p-5 space-y-2">
-                      <h3 className="text-sm sm:text-base font-bold text-[#222222] leading-snug">
+                    <div className="p-5 space-y-5">
+                      <h3 className="text-lg sm:text-lg font-bold text-[#222222] leading-snug">
                         {card.title}
                       </h3>
-                      <p className="text-xs text-[#555555] leading-relaxed font-normal">
+                      <p className="text-balance text-[#555555] leading-relaxed font-normal">
                         {card.description}
                       </p>
                     </div>
@@ -700,10 +700,10 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                   <div className="p-5 pt-0 mt-auto">
                     <button
                       onClick={'linkAction' in card ? card.linkAction : undefined}
-                      className="inline-flex items-center text-xs font-bold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors"
+                      className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors"
                     >
                       <span>{card.linkText}</span>
-                      <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                      <ChevronRight className=" ml-0.5" />
                     </button>
                   </div>
 
