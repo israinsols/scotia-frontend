@@ -14,7 +14,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
-  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
   const businessLines = [
@@ -72,7 +71,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
   }, [mobileMenuOpen]);
 
   return (
-    <header className="w-full bg-white shadow-xs sticky top-0 z-50 font-sans">
+    <header className="w-full bg-white shadow-xs sticky top-0 z-50 font-sans border-t-2 border-[#EC111A]">
       
       {/* ROW 1: TOP UTILITY LINE OF BUSINESS BAR — hidden on mobile */}
       <div className="hidden md:block bg-[#F8F9FA] border-b border-gray-200/80 text-[12px] text-[#4A4A4A]">
@@ -133,29 +132,58 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
       </div>
 
       {/* ROW 2: MAIN HEADER (LOGO, SEARCH, UTILITY ICONS, SIGN IN) */}
-      <div className="bg-white py-2.5 sm:py-3 md:py-4 border-b border-gray-100">
-        <div className="max-w-[1280px] mx-auto px-2 sm:px-4 lg:px-8 flex items-center justify-between gap-1 sm:gap-3 md:gap-4">
-          
-          {/* Hamburger button — mobile only */}
-          <button
-            className="md:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-lg text-gray-700 hover:bg-gray-100 transition shrink-0"
-            onClick={() => setMobileMenuOpen(true)}
-            aria-label="Open menu"
-          >
-            <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
+      <div className="bg-white py-3 sm:py-3.5 md:py-4 border-b border-gray-100">
+        
+        {/* Mobile Header Layout (3-Column Grid: Left Logo, Center Sign In, Right Hamburger) */}
+        <div className="grid grid-cols-3 items-center md:hidden px-4 sm:px-6">
+          {/* Left: Mobile Red Icon Logo */}
+          <div className="flex justify-start">
+            <a href="#" className="flex items-center shrink-0">
+              <img
+                src="https://www.scotiabank.com/content/dam/scotiabank/images/logos/2023/scotiabank-logo-red-mobile.svg"
+                alt="Scotiabank Logo"
+                className="h-7 sm:h-8 w-auto"
+              />
+            </a>
+          </div>
 
-          {/* Official Scotiabank Red Logo Image */}
+          {/* Center: Red Lock Icon + Sign In Text */}
+          <div className="flex justify-center">
+            <button
+              onClick={onOpenSignIn}
+              className="flex items-center space-x-1.5 text-[#EC111A] hover:text-[#C40912] font-semibold text-[17px] transition whitespace-nowrap"
+            >
+              <Lock className="w-5 h-5 text-[#EC111A] stroke-[2.2] shrink-0" />
+              <span>Sign In</span>
+            </button>
+          </div>
+
+          {/* Right: Hamburger Button */}
+          <div className="flex justify-end">
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="flex items-center justify-center text-[#222222] hover:text-black transition"
+              aria-label="Open menu"
+            >
+              <Menu className="w-7 h-7 stroke-[2]" />
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop Header Layout */}
+        <div className="hidden md:flex max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 items-center justify-start md:gap-16 lg:gap-32">
+          
+          {/* Logo */}
           <a href="#" className="flex items-center shrink-0">
             <img
               src="https://www.scotiabank.com/content/dam/scotiabank/images/logos/2019/scotiabank-logo-red-desktop-200px.svg"
               alt="Scotiabank Logo"
-              className="h-5 sm:h-7 md:h-8 w-auto max-w-[130px] sm:max-w-none"
+              className="h-7 md:h-8 w-auto"
             />
           </a>
 
           {/* Search Box — desktop only */}
-          <div className="w-[340px] relative hidden md:block" ref={searchRef}>
+          <div className="w-[275px] relative hidden md:block" ref={searchRef}>
             <div className="relative flex items-center">
               <input
                 type="text"
@@ -163,14 +191,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#EC111A] focus:ring-1 focus:ring-[#EC111A]"
+                className="w-full px-4 py-3.5 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#EC111A] focus:ring-1 focus:ring-[#EC111A]"
               />
               {searchQuery ? (
                 <button onClick={() => setSearchQuery('')} className="absolute right-3.5 text-gray-400">
                   <X className="w-4 h-4" />
                 </button>
               ) : (
-                <Search className="w-4 h-4 text-gray-500 absolute right-3.5 stroke-[2]" />
+                <Search className="w-5 h-5 text-gray-500 absolute right-3.5 stroke-[2]" />
               )}
             </div>
 
@@ -194,46 +222,37 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
             )}
           </div>
 
-          {/* Right Utility Icons & Sign In */}
-          <div className="flex items-center space-x-1 sm:space-x-3 md:space-x-8 shrink-0">
+          {/* Desktop Right Utility Icons & Sign In */}
+          <div className="hidden md:flex items-center space-x-8 shrink-0 ml-auto">
             
-            {/* Mobile search icon */}
-            <button
-              className="md:hidden flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 text-gray-700 hover:text-[#EC111A] transition shrink-0"
-              onClick={() => setMobileSearchOpen((v) => !v)}
-              aria-label="Search"
-            >
-              <Search className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
-            </button>
-
             {/* Location */}
-            <a href="#" className="hidden md:flex flex-col items-center text-[#333333] hover:text-[#EC111A] group transition">
-              <MapPin className="w-5 h-5 text-[#333333] group-hover:text-[#EC111A] mb-1 stroke-[1.5]" />
-              <span className="text-[11px] font-medium">Location</span>
+            <a href="#" className="flex flex-col items-center text-[#333333] hover:text-[#EC111A] group transition">
+              <MapPin className="w-7 h-12 text-[#333333] group-hover:text-[#EC111A] mb-1 stroke-[1.5]" />
+              <span className="text-[13px] ">Location</span>
             </a>
 
             {/* Contact Us */}
-            <a href="#" className="hidden md:flex flex-col items-center text-[#333333] hover:text-[#EC111A] group transition">
-              <Phone className="w-5 h-5 text-[#333333] group-hover:text-[#EC111A] mb-1 stroke-[1.5]" />
-              <span className="text-[11px] font-medium">Contact Us</span>
+            <a href="#" className="flex flex-col items-center text-[#333333] hover:text-[#EC111A] group transition">
+              <Phone className="w-7 h-12 text-[#333333] group-hover:text-[#EC111A] mb-1 stroke-[1.5]" />
+              <span className="text-[13px] ">Contact Us</span>
             </a>
 
             {/* Offers */}
-            <a href="#" className="hidden md:flex flex-col items-center text-[#333333] hover:text-[#EC111A] group transition">
-              <Award className="w-5 h-5 text-[#333333] group-hover:text-[#EC111A] mb-1 stroke-[1.5]" />
-              <span className="text-[11px] font-medium">Offers</span>
+            <a href="#" className="flex flex-col items-center text-[#333333] hover:text-[#EC111A] group transition">
+              <Award className="w-7 h-12 text-[#333333] group-hover:text-[#EC111A] mb-1 stroke-[1.5]" />
+              <span className="text-[13px] ">Offers</span>
             </a>
 
             {/* Sign In Button */}
             <div className="flex flex-col items-center shrink-0">
               <button
                 onClick={onOpenSignIn}
-                className="bg-[#EC111A] hover:bg-[#C40912] text-white font-bold px-2.5 sm:px-4 md:px-7 py-1.5 sm:py-2 md:py-2.5 rounded-md sm:rounded-lg flex items-center space-x-1 sm:space-x-1.5 md:space-x-2 text-xs md:text-sm whitespace-nowrap shrink-0 shadow-xs hover:shadow-md transition duration-150"
+                className="bg-[#EC111A] hover:bg-[#C40912] text-white font-bold px-18 py-4 rounded-md flex items-center space-x-2 text-sm whitespace-nowrap shrink-0 shadow-xs hover:shadow-md transition duration-150"
               >
-                <Lock className="w-3.5 h-3.5 md:w-4 md:h-4 stroke-[2.5] shrink-0" />
+                <Lock className="w-4 h-4 stroke-[2.5] shrink-0" />
                 <span className="whitespace-nowrap">Sign In</span>
               </button>
-              <div className="hidden md:block text-[10px] text-gray-600 mt-1">
+              <div className="text-[13px] text-gray-600 mt-1">
                 New to Scotia OnLine?{' '}
                 <a href="#" className="text-[#333333] font-bold underline hover:text-[#EC111A]">
                   Activate Now
@@ -245,34 +264,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
 
         </div>
 
-        {/* Mobile inline search bar — shown when search icon tapped */}
-        {mobileSearchOpen && (
-          <div className="md:hidden px-4 pb-3 pt-2 border-t border-gray-100">
-            <div className="relative flex items-center">
-              <input
-                type="text"
-                placeholder="Begin Your Search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                autoFocus
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#EC111A] focus:ring-1 focus:ring-[#EC111A]"
-              />
-              {searchQuery ? (
-                <button onClick={() => setSearchQuery('')} className="absolute right-3.5 text-gray-400">
-                  <X className="w-4 h-4" />
-                </button>
-              ) : (
-                <Search className="w-4 h-4 text-gray-500 absolute right-3.5 stroke-[2]" />
-              )}
-            </div>
-          </div>
-        )}
       </div>
 
       {/* ROW 3: BOTTOM MEGA MENU — hidden on mobile */}
-      <div className="hidden md:block bg-white border-b border-gray-200 py-3 text-[13px] relative z-40">
+      <div className="hidden md:block bg-white border-b border-gray-200 py-3 text-[15px] relative z-40">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <ul className="flex items-center space-x-8 text-[#4A4A4A] overflow-x-auto scrollbar-none">
+          <ul className="flex items-center space-x-11 text-[#4A4A4A] overflow-x-auto scrollbar-none">
             {megaMenuItems.map((item) => (
               <li
                 key={item.id}
@@ -280,7 +277,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
                 onMouseEnter={() => setActiveCategory(item.id)}
                 onMouseLeave={() => setActiveCategory(null)}
               >
-                <button className="hover:text-[#EC111A] font-medium whitespace-nowrap transition-colors flex items-center space-x-0.5">
+                <button className="hover:text-[#EC111A]  whitespace-nowrap transition-colors flex items-center space-x-0.5">
                   <span>{item.label}</span>
                 </button>
 
@@ -307,107 +304,92 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
 
       {/* MOBILE DRAWER OVERLAY */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[100] flex md:hidden">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-
-          {/* Drawer panel */}
-          <div className="relative w-[85vw] max-w-[360px] h-full bg-white flex flex-col shadow-2xl overflow-y-auto">
-            
-            {/* Drawer header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200 bg-white sticky top-0 z-10">
-              <img
-                src="https://www.scotiabank.com/content/dam/scotiabank/images/logos/2019/scotiabank-logo-red-desktop-200px.svg"
-                alt="Scotiabank"
-                className="h-7 w-auto"
-              />
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-10 h-10 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 transition"
-                aria-label="Close menu"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Mobile Drawer Sign In Button */}
-            <div className="p-4 bg-red-50/50 border-b border-gray-200">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenSignIn();
-                }}
-                className="w-full bg-[#EC111A] hover:bg-[#C40912] text-white font-bold py-3 rounded-lg flex items-center justify-center space-x-2 text-sm shadow-sm transition"
-              >
-                <Lock className="w-4 h-4 stroke-[2.5]" />
-                <span>Sign In to Scotia OnLine</span>
-              </button>
-            </div>
-
-            {/* Business lines tabs */}
-            <div className="px-5 py-3 border-b border-gray-100">
-              <p className="text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-wider">Line of Business</p>
-              <div className="flex flex-wrap gap-2">
-                {businessLines.map((line, idx) => (
-                  <button
-                    key={idx}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium border transition ${
-                      line.active
-                        ? 'bg-[#EC111A] text-white border-[#EC111A]'
-                        : 'bg-white text-gray-700 border-gray-300 hover:border-[#EC111A] hover:text-[#EC111A]'
-                    }`}
-                  >
-                    {line.label}
-                  </button>
-                ))}
+        <div className="fixed inset-0 z-[100] bg-white flex flex-col md:hidden">
+          
+          {/* Drawer Header (Sticky Top with Red Border Line, Logo, Center Sign In, Boxed Close Button) */}
+          <div className="bg-white border-t-2 border-[#EC111A] border-b border-gray-100 sticky top-0 z-10">
+            <div className="grid grid-cols-3 items-center px-4 py-3 sm:px-6">
+              
+              {/* Left: Red Mobile Logo */}
+              <div className="flex justify-start">
+                <a href="#" className="flex items-center shrink-0">
+                  <img
+                    src="https://www.scotiabank.com/content/dam/scotiabank/images/logos/2023/scotiabank-logo-red-mobile.svg"
+                    alt="Scotiabank Logo"
+                    className="h-7 sm:h-8 w-auto"
+                  />
+                </a>
               </div>
-            </div>
 
-            {/* Mobile search */}
-            <div className="px-5 py-3 border-b border-gray-100">
+              {/* Center: Red Lock Icon + Sign In */}
+              <div className="flex justify-center">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenSignIn();
+                  }}
+                  className="flex items-center space-x-1.5 text-[#EC111A] hover:text-[#C40912] font-semibold text-[17px] transition whitespace-nowrap"
+                >
+                  <Lock className="w-5 h-5 text-[#EC111A] stroke-[2.2] shrink-0" />
+                  <span>Sign In</span>
+                </button>
+              </div>
+
+              {/* Right: Boxed X Close Button */}
+              <div className="flex justify-end">
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-8 h-8 rounded border border-gray-400/80 flex items-center justify-center text-gray-700 hover:bg-gray-100 transition shrink-0"
+                  aria-label="Close menu"
+                >
+                  <X className="w-5 h-5 stroke-[2]" />
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Drawer Scrollable Content Body */}
+          <div className="flex-1 overflow-y-auto bg-white">
+            
+            {/* Search Input Box */}
+            <div className="p-6 bg-white border-b border-gray-100">
               <div className="relative flex items-center">
                 <input
                   type="text"
                   placeholder="Begin Your Search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#EC111A] focus:ring-1 focus:ring-[#EC111A]"
+                  className="w-full px-4 py-3.5 border border-gray-300 rounded-lg text-base text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#EC111A]"
                 />
-                {searchQuery ? (
-                  <button onClick={() => setSearchQuery('')} className="absolute right-3.5 text-gray-400">
-                    <X className="w-4 h-4" />
-                  </button>
-                ) : (
-                  <Search className="w-4 h-4 text-gray-500 absolute right-3.5 stroke-[2]" />
-                )}
+                <Search className="w-5 h-5 text-gray-500 absolute right-4 stroke-[1.8]" />
               </div>
             </div>
 
-            {/* Mega menu as accordion */}
-            <div className="flex-1 overflow-y-auto">
+            {/* Menu Items List */}
+            <div>
               {megaMenuItems.map((item) => (
                 <div key={item.id} className="border-b border-gray-100">
                   <button
                     onClick={() => setMobileAccordion(mobileAccordion === item.id ? null : item.id)}
-                    className="w-full flex items-center justify-between px-5 py-4 text-sm font-semibold text-[#222222] hover:bg-gray-50 transition min-h-[52px]"
+                    className="w-full flex items-center justify-between px-6 py-4.5 text-[17px] text-[#333333] hover:bg-gray-50 transition min-h-[56px]"
                   >
                     <span>{item.label}</span>
                     <ChevronRight
-                      className={`w-4 h-4 text-[#EC111A] transition-transform duration-200 ${
-                        mobileAccordion === item.id ? 'rotate-90' : ''
+                      className={`w-4.5 h-4.5 text-gray-400 transition-transform duration-200 ${
+                        mobileAccordion === item.id ? 'rotate-90 text-[#EC111A]' : ''
                       }`}
                     />
                   </button>
+
+                  {/* Accordion Expanded Sub-items */}
                   {mobileAccordion === item.id && (
-                    <ul className="bg-gray-50 px-5 pb-3 space-y-1">
+                    <ul className="bg-gray-50/70 px-6 pb-3 pt-1 space-y-1">
                       {item.items.map((sub, sIdx) => (
                         <li key={sIdx}>
                           <a
                             href="#"
-                            className="flex items-center justify-between py-2.5 text-xs text-gray-700 hover:text-[#EC111A] font-medium border-b border-gray-100 last:border-0 min-h-[44px]"
+                            className="flex items-center justify-between py-2.5 text-sm text-gray-700 hover:text-[#EC111A] font-medium border-b border-gray-100/60 last:border-0"
                           >
                             <span>{sub}</span>
                             <ArrowRight className="w-3.5 h-3.5 text-[#EC111A] shrink-0" />
@@ -420,38 +402,63 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
               ))}
             </div>
 
-            {/* Footer utility icons */}
-            <div className="px-5 py-4 border-t border-gray-200 bg-gray-50 flex items-center justify-around text-[#333333]">
-              <a href="#" className="flex flex-col items-center gap-1 text-[11px] font-medium hover:text-[#EC111A] transition min-w-[52px] min-h-[44px] justify-center">
-                <MapPin className="w-5 h-5 stroke-[1.5]" />
-                Location
-              </a>
-              <a href="#" className="flex flex-col items-center gap-1 text-[11px] font-medium hover:text-[#EC111A] transition min-w-[52px] min-h-[44px] justify-center">
-                <Phone className="w-5 h-5 stroke-[1.5]" />
-                Contact
-              </a>
-              <a href="#" className="flex flex-col items-center gap-1 text-[11px] font-medium hover:text-[#EC111A] transition min-w-[52px] min-h-[44px] justify-center">
-                <Award className="w-5 h-5 stroke-[1.5]" />
-                Offers
-              </a>
-              <div className="flex flex-col items-center gap-1 text-[11px] font-medium text-[#555555]">
-                <button
-                  onClick={() => setLangDropdownOpen((v) => !v)}
-                  className="flex items-center gap-0.5 hover:text-[#EC111A] transition"
-                >
-                  <span>{currentLang === 'en' ? 'EN' : 'FR'}</span>
-                  <ChevronDown className="w-3 h-3 text-[#EC111A]" />
-                </button>
-                {langDropdownOpen && (
-                  <div className="absolute bottom-20 right-16 w-28 bg-white shadow-xl rounded border border-gray-200 py-1 z-50">
-                    <button onClick={() => { setLang('en'); setLangDropdownOpen(false); }} className="w-full text-left px-3 py-2 text-xs hover:bg-gray-100">English</button>
-                    <button onClick={() => { setLang('fr'); setLangDropdownOpen(false); }} className="w-full text-left px-3 py-2 text-xs hover:bg-gray-100">Français</button>
-                  </div>
-                )}
-                Lang
-              </div>
+            {/* Language Select Section */}
+            <div className="px-6 py-6 border-b border-gray-100">
+              <label htmlFor="mobile-lang-select" className="block font-bold text-[#222222] text-base mb-2">
+                Language
+              </label>
+              <select
+                id="mobile-lang-select"
+                value={currentLang}
+                onChange={(e) => setLang(e.target.value as 'en' | 'fr')}
+                className="w-40 px-3 py-2 border border-gray-300 rounded bg-white text-base text-gray-700 focus:outline-none focus:border-[#EC111A]"
+              >
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+              </select>
             </div>
+
+            {/* Scotiabank Sites Select Section */}
+            <div className="px-6 py-6 border-b border-gray-100">
+              <label htmlFor="mobile-sites-select" className="block font-bold text-[#222222] text-base mb-2">
+                Scotiabank Sites
+              </label>
+              <select
+                id="mobile-sites-select"
+                className="w-44 px-3 py-2 border border-gray-300 rounded bg-white text-base text-gray-700 focus:outline-none focus:border-[#EC111A]"
+              >
+                {businessLines.map((line, idx) => (
+                  <option key={idx} value={line.label}>
+                    {line.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* More Sites Section */}
+            <div className="px-6 py-6 border-b border-gray-100">
+              <a href="#" className="text-[17px] text-[#333333] hover:underline font-normal">
+                More Sites
+              </a>
+            </div>
+
           </div>
+
+          {/* Sticky Bottom Utility Bar (Contact Us & Offers) */}
+          <div className="sticky bottom-0 bg-white border-t border-gray-200 py-4 px-6 sm:px-8 flex items-center justify-between text-[#333333] shrink-0 z-10">
+            {/* Contact Us */}
+            <a href="#" className="flex flex-col items-center gap-1.5 text-xs text-[#333333] hover:text-[#EC111A] transition">
+              <Phone className="w-6.5 h-6.5 text-[#333333] stroke-[1.5]" />
+              <span className="text-[13px] font-medium">Contact Us</span>
+            </a>
+
+            {/* Offers */}
+            <a href="#" className="flex flex-col items-center gap-1.5 text-xs text-[#333333] hover:text-[#EC111A] transition">
+              <Award className="w-6.5 h-6.5 text-[#333333] stroke-[1.5]" />
+              <span className="text-[13px] font-medium">Offers</span>
+            </a>
+          </div>
+
         </div>
       )}
 
