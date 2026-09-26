@@ -621,7 +621,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
                       }}
                       className="w-full text-left py-2.5 px-1 hover:bg-gray-50/80 transition flex items-center justify-between"
                     >
-                      <span className="text-[14px] font-normal text-[#222222] hover:text-[#006699] border-b border-dotted border-gray-700">
+                      <span className="text-[14px] font-normal text-[#222222] border-b border-dotted border-gray-700">
                         {item}
                       </span>
                     </button>
@@ -732,7 +732,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
                           const isExternal = typeof sub === 'object' && sub.isExternal;
                           return (
                             <li key={sIdx}>
-                              <a href="#" className="inline-flex items-center text-[13.5px] text-[#4A4A4A] hover:text-[#EC111A] hover:underline font-normal transition-colors leading-normal">
+                              <a href="#" className="inline-flex items-center text-[13.5px] text-[#4A4A4A] hover:font-bold font-normal transition-colors leading-normal">
                                 <span>{label}</span>
                                 {isExternal && (
                                   <ExternalLink className="w-3.5 h-3.5 ml-1 text-[#4A4A4A] stroke-[2] shrink-0 inline" />
