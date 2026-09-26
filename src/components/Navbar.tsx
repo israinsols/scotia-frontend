@@ -450,7 +450,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
   }, [mobileMenuOpen]);
 
   return (
-    <header className="w-full bg-white shadow-xs relative z-50 font-sans border-t-2 border-[#EC111A]">
+    <header className="w-full bg-white shadow-xs relative z-50 font-sans ">
       
       {/* ROW 1: TOP UTILITY LINE OF BUSINESS BAR — hidden on mobile */}
       <div className="hidden md:block bg-[#F8F9FA] border-b border-gray-200/80 text-[12px] text-[#4A4A4A]">
