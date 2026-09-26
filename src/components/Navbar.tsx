@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, MapPin, Phone, Award, Lock, ChevronDown, X, ArrowRight, Menu, ChevronRight } from 'lucide-react';
+import { Search, MapPin, Phone, Award, Lock, ChevronDown, X, Menu, ChevronRight, ChevronLeft, ExternalLink } from 'lucide-react';
 
 interface NavbarProps {
   onOpenSignIn: () => void;
@@ -13,8 +13,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
+  const [mobileActiveCategory, setMobileActiveCategory] = useState<string | null>(null);
+  const [mobileActiveColumn, setMobileActiveColumn] = useState<string | null>(null);
   const searchRef = useRef<HTMLDivElement>(null);
+
+  const formatHeaderTitleCase = (header: string) => {
+    return header
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
 
   const businessLines = [
     { label: 'Personal', active: true },
@@ -38,16 +47,386 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
   ];
 
   const megaMenuItems = [
-    { id: 'accounts', label: 'Bank Accounts', items: ['Chequing accounts', 'Savings accounts', 'Seniors bank accounts', 'Student and youth accounts'] },
-    { id: 'cards', label: 'Credit Cards', items: ['All Credit Cards', 'Cash Back Cards', 'Scene+ Rewards Cards', 'No Annual Fee Cards'] },
-    { id: 'investments', label: 'Investments', items: ['GICs', 'TFSA', 'RRSP', 'FHSA', 'Scotia iTRADE'] },
-    { id: 'loans', label: 'Loans & Lines of Credit', items: ['Personal Line of Credit', 'Scotia Plan Loans', 'Auto Loans'] },
-    { id: 'mortgages', label: 'Mortgages', items: ['Fixed Rate', 'Variable Rate', 'Scotia Total Equity Plan (STEP)'] },
-    { id: 'insurance', label: 'Insurance', items: ['Creditor Insurance', 'Home Insurance', 'Auto Insurance', 'Travel Insurance'] },
-    { id: 'advice', label: 'Advice+', items: ['Scotia Advice+ Centre', 'Financial Health Checkup', 'Book an Appointment'] },
-    { id: 'scene', label: 'Scene+', items: ['Earn Points', 'Redeem Points', 'Scene+ Partners'] },
-    { id: 'programs', label: 'Programs', items: ['StartRight Newcomers', 'Healthcare Program', 'Student Hub'] },
-    { id: 'rates', label: 'Rates & Fees', items: ['Mortgage Rates', 'GIC Rates', 'Savings Rates', 'Prime Rate'] },
+    {
+      id: 'accounts',
+      label: 'Bank Accounts',
+      columns: [
+        {
+          header: 'PRODUCTS',
+          items: ['Chequing accounts', 'Savings accounts', 'Seniors bank accounts', 'Student and youth accounts']
+        },
+        {
+          header: 'SERVICES',
+          items: ['Account services', 'Overdraft protection', 'Canada Deposit Insurance Corporation', 'Change your account', 'Regulatory information', 'International Money Transfer']
+        },
+        {
+          header: 'RESOURCES',
+          items: ['Why switch banks?', 'How to switch to Scotia', 'Tips to reduce fees', 'Banking made easy', 'Be rewarded for your banking', 'Save automatically', 'The Student Hub']
+        }
+      ]
+    },
+    {
+      id: 'cards',
+      label: 'Credit Cards',
+      columns: [
+        {
+          header: 'CARD TYPES',
+          items: [
+            'Cash back credit cards',
+            'Travel & lifestyle credit cards',
+            'No annual fee credit cards',
+            'Low interest credit cards',
+            'Scene+ rewards credit cards',
+            'Student credit cards',
+            { label: 'Newcomer credit cards', isExternal: true },
+            'Award-winning credit cards',
+            'All credit cards'
+          ]
+        },
+        {
+          header: 'SERVICES',
+          items: [
+            'Activate your credit card',
+            'Manage your credit card',
+            'Order supplementary credit cards',
+            'Click to Pay - easy, secure online checkout',
+            'Scotia SelectPay - Installment payment plans',
+            'Credit Card Protection insurance'
+          ]
+        },
+        {
+          header: 'RESOURCES',
+          items: [
+            'Digital banking guide - credit cards',
+            'Credit cards welcome kits',
+            'How to redeem your points',
+            'Credit card fees at a glance',
+            'Credit card interest rates',
+            'Checking your credit score',
+            'Security and fraud',
+            { label: 'Credit card FAQs', isExternal: true }
+          ]
+        },
+        {
+          header: 'TOOLS',
+          items: [
+            'Credit card calculators and tools',
+            'Credit card rewards calculator',
+            'Find the right credit solution for you',
+            'Compare American Express Credit Cards',
+            { label: 'Interest savings calculator', isExternal: true }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'investments',
+      label: 'Investments',
+      columns: [
+        {
+          header: 'POPULAR INVESTMENTS',
+          items: [
+            'Tax-Free Savings Accounts (TFSA)',
+            'First Home Savings Account (FHSA)',
+            'Registered Retirement Savings Plans (RRSP)',
+            'Registered Education Savings Plans (RESP)',
+            'Guaranteed Investment Certificates (GICs)',
+            { label: 'Scotia Essentials Portfolios', isExternal: true },
+            { label: 'Mutual funds', isExternal: true }
+          ]
+        },
+        {
+          header: 'WAYS TO INVEST',
+          items: [
+            'Talk to a Scotia advisor',
+            'Guided investing - Scotia Smart Investor',
+            { label: 'Self-directed investing – Scotia iTRADE', isExternal: true },
+            'Wealth management',
+            'Scotia Financial Planning'
+          ]
+        },
+        {
+          header: 'TOOLS AND RESOURCES',
+          items: [
+            'Investment calculators and tools',
+            'TFSA calculator',
+            'Investing basics',
+            'Investment account fees',
+            'Pre-Authorized Contributions (PAC)',
+            'Regulatory disclosures'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'loans',
+      label: 'Loans & Lines of Credit',
+      columns: [
+        {
+          header: 'LOANS',
+          items: [
+            'Scotia Plan® Loan',
+            'Auto loans',
+            'Grad auto loans',
+            'StartRight auto finance program',
+            'Marine & boat loans',
+            'Recreational vehicle (RV) loan'
+          ]
+        },
+        {
+          header: 'LINES OF CREDIT',
+          items: [
+            'ScotiaLine® Personal Line of Credit',
+            'ScotiaLine® Personal Line of Credit (STEP)',
+            'ScotiaLine® Personal Line of Credit for students',
+            'Scotia RSP catch-up line of credit'
+          ]
+        },
+        {
+          header: 'TOOLS',
+          items: ['Auto loan payment calculator', 'Personal loan calculator']
+        },
+        {
+          header: 'BORROWING BASICS',
+          items: [
+            'Building a good credit history',
+            'The loan or lease decision',
+            'Lower your overall cost of borrowing',
+            'How to choose a vehicle'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'mortgages',
+      label: 'Mortgages',
+      columns: [
+        {
+          header: 'ADVICE',
+          items: [
+            'Connect with a home financing advisor',
+            'Buying another property',
+            'Existing homeowners',
+            'Mortgage renewal',
+            'First-time homebuyers',
+            'Renovations',
+            'Understanding mortgage prepayments and charges',
+            'Conventional vs. collateral mortgage charges'
+          ]
+        },
+        {
+          header: 'PRODUCTS',
+          items: [
+            'Scotiabank eHOME',
+            'Scotia Total Equity® Plan (STEP)',
+            'Fixed rate mortgages',
+            'Variable rate mortgages',
+            'Switch to Scotiabank program',
+            'Mortgage Special Offers and Programs',
+            'Second home mortgages',
+            'Mortgage Protection insurance'
+          ]
+        },
+        {
+          header: 'RESOURCES',
+          items: [
+            'Mortgage calculator',
+            'Mortgage articles',
+            'Mortgage glossary',
+            'Mortgage tools',
+            'Manage your mortgage online',
+            'Solicitor / Notary',
+            'Mortgage videos',
+            'Mortgage rates'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'insurance',
+      label: 'Insurance',
+      columns: [
+        {
+          header: 'INSURANCE PRODUCTS',
+          items: [
+            'Mortgage Protection insurance',
+            'Credit Card Protection insurance',
+            'Line of Credit Protection insurance',
+            'Business Loan Protection insurance',
+            'Loan Protection insurance',
+            'Travel insurance'
+          ]
+        },
+        {
+          header: 'CLAIMS FORMS',
+          items: ['Creditor protection insurance claims', 'Travel Insurance claims']
+        },
+        {
+          header: 'TOOLS & RESOURCES',
+          items: [
+            'Creditor Insurance Protection Planner',
+            { label: 'Mortgage protection insurance calculator', isExternal: true },
+            { label: 'Credit card protection insurance calculator', isExternal: true },
+            { label: 'Line of credit protection insurance calculator', isExternal: true },
+            'Loan protection insurance calculator',
+            'Education Centre'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'advice',
+      label: 'Advice+',
+      columns: [
+        {
+          header: 'ADVICE+ PLANNING',
+          items: [
+            'Create a financial plan',
+            'Get started with investing',
+            'Build a budget',
+            'Plan your move to Canada',
+            'Buy a home',
+            'Get out of debt',
+            'Planning for life',
+            'Banking 101'
+          ]
+        },
+        {
+          header: 'ADVICE+ RESOURCES',
+          items: [
+            'Trending articles',
+            'Interest rates and inflation',
+            'Protect yourself from fraud',
+            'Scene+',
+            'Book an Advice+ appointment'
+          ]
+        },
+        {
+          header: 'ADVICE+ TOOLS',
+          items: [
+            'How Advice+ works',
+            'Scotia Smart Money',
+            'Guided investing - Scotia Smart Investor',
+            "What's your Money Style?",
+            'Mortgage calculator',
+            'Credit card rewards calculator',
+            'Personal loan calculator'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'scene',
+      label: 'Scene+',
+      bottomLinkText: 'Explore Scene+',
+      columns: [
+        {
+          header: 'THE PROGRAM',
+          items: ['Scene+', 'Debit and credit cards', 'Earn and redeem', 'Partners', 'Scene+ app']
+        },
+        {
+          header: 'GET SUPPORT',
+          items: ['Frequently asked questions', 'Program tips', 'Advice+', 'Credit card rewards calculator']
+        },
+        {
+          header: 'SCENE+ DEBIT CARDS',
+          items: ['Ultimate Package', 'Preferred Package']
+        },
+        {
+          header: 'SCENE+ CREDIT CARDS',
+          items: [
+            'Scotiabank Scene+ Visa Card',
+            'Scotiabank Passport Visa Infinite card',
+            'Scotiabank Gold American Express card',
+            'Scotiabank American Express card',
+            'Scotiabank Platinum American Express card',
+            'ScotiaGold Passport Visa card'
+          ]
+        },
+        {
+          header: 'SCENE+ FOR STUDENTS',
+          items: [
+            'Preferred Package for Students and Youth - 16 and over',
+            'Preferred Package for Students and Youth - Under 16',
+            'Scotiabank Scene+ Visa Card for Students',
+            'Scene+ Student Banking Bundle',
+            'The Student Hub'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'programs',
+      label: 'Programs',
+      columns: [
+        {
+          header: 'PROGRAMS & SERVICES',
+          items: [
+            'Scene+',
+            'Shell',
+            'Indigenous Peoples',
+            'Smart savings tools',
+            'Hockey for All',
+            'Scotia Perks',
+            'Bank The Rest® savings program',
+            'Referral Program'
+          ]
+        },
+        {
+          header: 'SPECIALTY SERVICES',
+          items: [
+            { label: 'StartRight program for Newcomers', isExternal: true },
+            { label: 'Higher credit limit with Nova Credit', isExternal: true },
+            'Seniors Resource Centre',
+            'The Student Hub',
+            'Healthcare+ Banking Programs',
+            'Lawyer Banking Program'
+          ]
+        },
+        {
+          header: 'OFFERS',
+          items: [
+            'Credit bureau reports',
+            'Scene+ Student Banking Bundle',
+            'Willful',
+            'English Language Test with Pearson (PTE)'
+          ]
+        }
+      ]
+    },
+    {
+      id: 'rates',
+      label: 'Rates & Fees',
+      columns: [
+        {
+          header: 'BANK FEES',
+          items: [
+            'Bank account fees at a glance',
+            'Credit card fees at a glance',
+            'Tips to reduce fees',
+            'Chequing account rates',
+            'Investment account fees'
+          ]
+        },
+        {
+          header: 'BORROWING',
+          items: ['Credit card interest rates', 'Mortgage rates']
+        },
+        {
+          header: 'SAVING & INVESTING',
+          items: [
+            'Savings account interest rates',
+            'GIC Interest rates',
+            'Mutual funds prices',
+            'Registered plan interest rates'
+          ]
+        },
+        {
+          header: 'CURRENCY',
+          items: ['Foreign exchange rates', 'Foreign exchange services']
+        }
+      ]
+    }
   ];
 
   useEffect(() => {
@@ -71,7 +450,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
   }, [mobileMenuOpen]);
 
   return (
-    <header className="w-full bg-white shadow-xs sticky top-0 z-50 font-sans border-t-2 border-[#EC111A]">
+    <header className="w-full bg-white shadow-xs relative z-50 font-sans border-t-2 border-[#EC111A]">
       
       {/* ROW 1: TOP UTILITY LINE OF BUSINESS BAR — hidden on mobile */}
       <div className="hidden md:block bg-[#F8F9FA] border-b border-gray-200/80 text-[12px] text-[#4A4A4A]">
@@ -183,43 +562,75 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
           </a>
 
           {/* Search Box — desktop only */}
-          <div className="w-[275px] relative hidden md:block" ref={searchRef}>
-            <div className="relative flex items-center">
-              <input
-                type="text"
-                placeholder="Begin Your Search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                className="w-full px-4 py-3.5 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#EC111A] focus:ring-1 focus:ring-[#EC111A]"
-              />
-              {searchQuery ? (
-                <button onClick={() => setSearchQuery('')} className="absolute right-3.5 text-gray-400">
-                  <X className="w-4 h-4" />
-                </button>
-              ) : (
+          <div className="w-[280px] h-[46px] relative hidden md:block" ref={searchRef}>
+            
+            {/* Collapsed Search Input (Normal DOM Flow) */}
+            {!isSearchFocused && (
+              <div className="w-full h-full relative flex items-center">
+                <input
+                  type="text"
+                  placeholder="Begin Your Search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setIsSearchFocused(true)}
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:border-[#006699]"
+                />
                 <Search className="w-5 h-5 text-gray-500 absolute right-3.5 stroke-[2]" />
-              )}
-            </div>
-
-            {/* Trending Searches Dropdown */}
-            {isSearchFocused && (
-              <div className="absolute left-0 right-0 mt-1 bg-white rounded-lg shadow-2xl border border-gray-200 py-2 z-50">
-                <div className="px-3 pb-1 text-[10px] font-bold text-gray-400 uppercase">
-                  Trending Searches
-                </div>
-                {trendingSearches.map((item, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => { setSearchQuery(item); setIsSearchFocused(false); }}
-                    className="w-full text-left px-3 py-1.5 text-xs text-gray-700 hover:bg-red-50 hover:text-[#EC111A] flex items-center space-x-2"
-                  >
-                    <Search className="w-3.5 h-3.5 text-gray-400" />
-                    <span>{item}</span>
-                  </button>
-                ))}
               </div>
             )}
+
+            {/* Focused Popover Card (Single white box wrapping Input + Trending Searches) */}
+            {isSearchFocused && (
+              <div className="absolute -top-3 -left-3 w-[340px] bg-white rounded-2xl shadow-2xl border border-gray-200/90 p-4 z-50">
+                
+                {/* Active Search Input inside popover with blue border */}
+                <div className="relative flex items-center mb-3">
+                  <input
+                    type="text"
+                    placeholder="Begin Your Search"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    autoFocus
+                    className="w-full px-4 py-2.5 border-2 border-[#006699] rounded-lg text-base text-[#222222] placeholder-gray-400 focus:outline-none font-sans"
+                  />
+                  {searchQuery ? (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-3.5 text-gray-400 hover:text-black"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  ) : (
+                    <Search className="w-5 h-5 text-[#444444] absolute right-3.5 stroke-[1.8]" />
+                  )}
+                </div>
+
+                {/* Section Title */}
+                <h3 className="font-bold text-[#222222] text-[19px] font-sans mb-3 mt-1 px-1">
+                  Trending searches
+                </h3>
+
+                {/* Trending Searches Item List */}
+                <div className="divide-y divide-gray-200/80">
+                  {trendingSearches.map((item, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        setSearchQuery(item);
+                        setIsSearchFocused(false);
+                      }}
+                      className="w-full text-left py-2.5 px-1 hover:bg-gray-50/80 transition flex items-center justify-between"
+                    >
+                      <span className="text-[14px] font-normal text-[#222222] hover:text-[#006699] border-b border-dotted border-gray-700">
+                        {item}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+              </div>
+            )}
+
           </div>
 
           {/* Desktop Right Utility Icons & Sign In */}
@@ -266,40 +677,88 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
 
       </div>
 
-      {/* ROW 3: BOTTOM MEGA MENU — hidden on mobile */}
-      <div className="hidden md:block bg-white border-b border-gray-200 py-3 text-[15px] relative z-40">
+      {/* ROW 3: BOTTOM MEGA MENU BAR (Desktop) */}
+      <div 
+        className="hidden md:block bg-white border-b border-gray-200 text-[15px] relative z-40"
+        onMouseLeave={() => setActiveCategory(null)}
+      >
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <ul className="flex items-center space-x-11 text-[#4A4A4A] overflow-x-auto scrollbar-none">
-            {megaMenuItems.map((item) => (
-              <li
-                key={item.id}
-                className="relative"
-                onMouseEnter={() => setActiveCategory(item.id)}
-                onMouseLeave={() => setActiveCategory(null)}
-              >
-                <button className="hover:text-[#EC111A]  whitespace-nowrap transition-colors flex items-center space-x-0.5">
-                  <span>{item.label}</span>
-                </button>
-
-                {/* Dropdown Flyout */}
-                {activeCategory === item.id && (
-                  <div className="absolute left-0 mt-2 w-64 bg-white shadow-xl rounded-lg border border-gray-200 p-4 z-50">
-                    <ul className="space-y-2">
-                      {item.items.map((sub, sIdx) => (
-                        <li key={sIdx}>
-                          <a href="#" className="text-xs text-gray-700 hover:text-[#EC111A] flex items-center justify-between font-medium">
-                            <span>{sub}</span>
-                            <ArrowRight className="w-3 h-3 text-[#EC111A]" />
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </li>
-            ))}
+          <ul className="flex items-center justify-between text-[#4A4A4A] py-3">
+            {megaMenuItems.map((item) => {
+              const isActive = activeCategory === item.id;
+              return (
+                <li
+                  key={item.id}
+                  className="relative"
+                  onMouseEnter={() => setActiveCategory(item.id)}
+                >
+                  <button className={`py-1.5 whitespace-nowrap transition-colors flex items-center space-x-0.5 border-b-2 ${
+                    isActive 
+                      ? 'border-[#EC111A] text-[#222222] font-bold' 
+                      : 'border-transparent text-[#4A4A4A] hover:text-[#222222]'
+                  }`}>
+                    <span>{item.label}</span>
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
+
+        {/* FULL WIDTH MEGA MENU FLYOUT DROPDOWN MATCHING SCREENSHOTS */}
+        {activeCategory && (() => {
+          const activeItemData = megaMenuItems.find(m => m.id === activeCategory);
+          if (!activeItemData) return null;
+          const colCount = activeItemData.columns.length;
+          return (
+            <div 
+              className="absolute top-full left-0 right-0 w-full bg-white border-b border-gray-200 shadow-2xl z-50 pt-8 pb-6 animate-in fade-in duration-150"
+              onMouseEnter={() => setActiveCategory(activeCategory)}
+              onMouseLeave={() => setActiveCategory(null)}
+            >
+              <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
+                
+                {/* Columns Grid: 3, 4 or 5 columns dynamically */}
+                <div className={`grid ${colCount === 5 ? 'grid-cols-5' : colCount === 4 ? 'grid-cols-4' : 'grid-cols-3'} gap-8 text-left`}>
+                  
+                  {activeItemData.columns.map((col, cIdx) => (
+                    <div key={cIdx}>
+                      <h4 className="text-[12px] font-bold tracking-wider text-[#4A4A4A] uppercase mb-4 font-sans">
+                        {col.header}
+                      </h4>
+                      <ul className="space-y-2.5">
+                        {col.items.map((sub, sIdx) => {
+                          const label = typeof sub === 'string' ? sub : sub.label;
+                          const isExternal = typeof sub === 'object' && sub.isExternal;
+                          return (
+                            <li key={sIdx}>
+                              <a href="#" className="inline-flex items-center text-[13.5px] text-[#4A4A4A] hover:text-[#EC111A] hover:underline font-normal transition-colors leading-normal">
+                                <span>{label}</span>
+                                {isExternal && (
+                                  <ExternalLink className="w-3.5 h-3.5 ml-1 text-[#4A4A4A] stroke-[2] shrink-0 inline" />
+                                )}
+                              </a>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ))}
+
+                </div>
+
+                {/* Bottom Center: Custom or Default View All Link */}
+                <div className="mt-8 pt-4 border-t border-gray-100 flex justify-center">
+                  <a href="#" className="text-[14px] font-bold text-[#222222] hover:text-[#EC111A] underline transition-colors">
+                    {activeItemData.bottomLinkText || "View All"}
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          );
+        })()}
+
       </div>
 
       {/* MOBILE DRAWER OVERLAY */}
@@ -338,7 +797,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
               {/* Right: Boxed X Close Button */}
               <div className="flex justify-end">
                 <button
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setMobileActiveCategory(null);
+                    setMobileActiveColumn(null);
+                  }}
                   className="w-8 h-8 rounded border border-gray-400/80 flex items-center justify-center text-gray-700 hover:bg-gray-100 transition shrink-0"
                   aria-label="Close menu"
                 >
@@ -366,81 +829,155 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSignIn, currentLang, setLa
               </div>
             </div>
 
-            {/* Menu Items List */}
-            <div>
-              {megaMenuItems.map((item) => (
-                <div key={item.id} className="border-b border-gray-100">
-                  <button
-                    onClick={() => setMobileAccordion(mobileAccordion === item.id ? null : item.id)}
-                    className="w-full flex items-center justify-between px-6 py-4.5 text-[17px] text-[#333333] hover:bg-gray-50 transition min-h-[56px]"
-                  >
-                    <span>{item.label}</span>
-                    <ChevronRight
-                      className={`w-4.5 h-4.5 text-gray-400 transition-transform duration-200 ${
-                        mobileAccordion === item.id ? 'rotate-90 text-[#EC111A]' : ''
-                      }`}
-                    />
-                  </button>
-
-                  {/* Accordion Expanded Sub-items */}
-                  {mobileAccordion === item.id && (
-                    <ul className="bg-gray-50/70 px-6 pb-3 pt-1 space-y-1">
-                      {item.items.map((sub, sIdx) => (
-                        <li key={sIdx}>
-                          <a
-                            href="#"
-                            className="flex items-center justify-between py-2.5 text-sm text-gray-700 hover:text-[#EC111A] font-medium border-b border-gray-100/60 last:border-0"
-                          >
-                            <span>{sub}</span>
-                            <ArrowRight className="w-3.5 h-3.5 text-[#EC111A] shrink-0" />
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+            {/* LEVEL 0: MAIN MENU CATEGORIES */}
+            {!mobileActiveCategory && (
+              <>
+                <div>
+                  {megaMenuItems.map((item) => (
+                    <div key={item.id} className="border-b border-gray-100">
+                      <button
+                        onClick={() => {
+                          setMobileActiveCategory(item.id);
+                          setMobileActiveColumn(null);
+                        }}
+                        className="w-full flex items-center justify-between px-6 py-4.5 text-[17px] text-[#333333] hover:bg-gray-50 transition min-h-[56px] text-left"
+                      >
+                        <span>{item.label}</span>
+                        <ChevronRight className="w-4.5 h-4.5 text-gray-400 stroke-[2] shrink-0" />
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            {/* Language Select Section */}
-            <div className="px-6 py-6 border-b border-gray-100">
-              <label htmlFor="mobile-lang-select" className="block font-bold text-[#222222] text-base mb-2">
-                Language
-              </label>
-              <select
-                id="mobile-lang-select"
-                value={currentLang}
-                onChange={(e) => setLang(e.target.value as 'en' | 'fr')}
-                className="w-40 px-3 py-2 border border-gray-300 rounded bg-white text-base text-gray-700 focus:outline-none focus:border-[#EC111A]"
-              >
-                <option value="en">English</option>
-                <option value="fr">Français</option>
-              </select>
-            </div>
+                {/* Language Select Section */}
+                <div className="px-6 py-6 border-b border-gray-100">
+                  <label htmlFor="mobile-lang-select" className="block font-bold text-[#222222] text-base mb-2">
+                    Language
+                  </label>
+                  <select
+                    id="mobile-lang-select"
+                    value={currentLang}
+                    onChange={(e) => setLang(e.target.value as 'en' | 'fr')}
+                    className="w-40 px-3 py-2 border border-gray-300 rounded bg-white text-base text-gray-700 focus:outline-none focus:border-[#EC111A]"
+                  >
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                  </select>
+                </div>
 
-            {/* Scotiabank Sites Select Section */}
-            <div className="px-6 py-6 border-b border-gray-100">
-              <label htmlFor="mobile-sites-select" className="block font-bold text-[#222222] text-base mb-2">
-                Scotiabank Sites
-              </label>
-              <select
-                id="mobile-sites-select"
-                className="w-44 px-3 py-2 border border-gray-300 rounded bg-white text-base text-gray-700 focus:outline-none focus:border-[#EC111A]"
-              >
-                {businessLines.map((line, idx) => (
-                  <option key={idx} value={line.label}>
-                    {line.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+                {/* Scotiabank Sites Select Section */}
+                <div className="px-6 py-6 border-b border-gray-100">
+                  <label htmlFor="mobile-sites-select" className="block font-bold text-[#222222] text-base mb-2">
+                    Scotiabank Sites
+                  </label>
+                  <select
+                    id="mobile-sites-select"
+                    className="w-44 px-3 py-2 border border-gray-300 rounded bg-white text-base text-gray-700 focus:outline-none focus:border-[#EC111A]"
+                  >
+                    {businessLines.map((line, idx) => (
+                      <option key={idx} value={line.label}>
+                        {line.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-            {/* More Sites Section */}
-            <div className="px-6 py-6 border-b border-gray-100">
-              <a href="#" className="text-[17px] text-[#333333] hover:underline font-normal">
-                More Sites
-              </a>
-            </div>
+                {/* More Sites Section */}
+                <div className="px-6 py-6 border-b border-gray-100">
+                  <a href="#" className="text-[17px] text-[#333333] hover:underline font-normal">
+                    More Sites
+                  </a>
+                </div>
+              </>
+            )}
+
+            {/* LEVEL 1: CATEGORY SUBMENU (View All, Products, Services, Resources, etc.) */}
+            {mobileActiveCategory && !mobileActiveColumn && (() => {
+              const activeCatData = megaMenuItems.find(m => m.id === mobileActiveCategory);
+              if (!activeCatData) return null;
+
+              return (
+                <div>
+                  {/* Back to main menu */}
+                  <div className="border-b border-gray-100">
+                    <button
+                      onClick={() => {
+                        setMobileActiveCategory(null);
+                        setMobileActiveColumn(null);
+                      }}
+                      className="w-full flex items-center px-6 py-4.5 text-[16px] text-[#333333] hover:bg-gray-50 transition min-h-[56px] text-left"
+                    >
+                      <ChevronLeft className="w-4.5 h-4.5 text-gray-600 mr-2 shrink-0 stroke-[2]" />
+                      <span>Back to main menu</span>
+                    </button>
+                  </div>
+
+                  {/* View all / Custom bottom link */}
+                  <div className="border-b border-gray-100">
+                    <a
+                      href="#"
+                      className="block px-6 py-4.5 text-[16px] text-[#333333] hover:bg-gray-50 transition min-h-[56px]"
+                    >
+                      {activeCatData.bottomLinkText || "View all"}
+                    </a>
+                  </div>
+
+                  {/* Column Headers List */}
+                  {activeCatData.columns.map((col, cIdx) => (
+                    <div key={cIdx} className="border-b border-gray-100">
+                      <button
+                        onClick={() => setMobileActiveColumn(col.header)}
+                        className="w-full flex items-center justify-between px-6 py-4.5 text-[16px] text-[#333333] hover:bg-gray-50 transition min-h-[56px] text-left"
+                      >
+                        <span>{formatHeaderTitleCase(col.header)}</span>
+                        <ChevronRight className="w-4.5 h-4.5 text-gray-400 stroke-[2] shrink-0" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
+
+            {/* LEVEL 2: COLUMN SUB-ITEMS LIST */}
+            {mobileActiveCategory && mobileActiveColumn && (() => {
+              const activeCatData = megaMenuItems.find(m => m.id === mobileActiveCategory);
+              const activeColData = activeCatData?.columns.find(c => c.header === mobileActiveColumn);
+              if (!activeColData) return null;
+
+              return (
+                <div>
+                  {/* Back */}
+                  <div className="border-b border-gray-100">
+                    <button
+                      onClick={() => setMobileActiveColumn(null)}
+                      className="w-full flex items-center px-6 py-4.5 text-[16px] text-[#333333] hover:bg-gray-50 transition min-h-[56px] text-left"
+                    >
+                      <ChevronLeft className="w-4.5 h-4.5 text-gray-600 mr-2 shrink-0 stroke-[2]" />
+                      <span>Back</span>
+                    </button>
+                  </div>
+
+                  {/* Sub-items List */}
+                  {activeColData.items.map((sub, sIdx) => {
+                    const label = typeof sub === 'string' ? sub : sub.label;
+                    const isExternal = typeof sub === 'object' && sub.isExternal;
+                    return (
+                      <div key={sIdx} className="border-b border-gray-100">
+                        <a
+                          href="#"
+                          className="flex items-center px-6 py-4 text-[15px] text-[#333333] hover:bg-gray-50 transition min-h-[52px]"
+                        >
+                          <span>{label}</span>
+                          {isExternal && (
+                            <ExternalLink className="w-3.5 h-3.5 ml-1.5 text-gray-500 shrink-0 inline" />
+                          )}
+                        </a>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
 
           </div>
 
