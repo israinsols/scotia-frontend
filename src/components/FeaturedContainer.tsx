@@ -38,7 +38,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
     },
     {
       category: null,
-      image: 'https://www.scotiabank.com/content/dam/scotiabank/canada/scotia-growth-institute/7761001_Project_Legacy_tile_%20image.png',
+      image: 'https://www.scotiabank.com/content/dam/scotiabank/canada/homepage/personal/09-2026/Homepage-iTrade-Tile-686x386.jpg',
       fallback: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=686&q=80',
       title: 'Introducing the Scotia Growth Institute',
       description: "A new source for expert analysis, proprietary research, and thoughtful insights on the future of Canada's long-term competitiveness.",
@@ -330,7 +330,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
   ];
 
   return (
-    <section className="bg-[#F8F9FA] pb-10 sm:pb-16 pt-4 font-sans">
+    <section id="featured-container" className="bg-[#F8F9FA] pb-10 sm:pb-16 pt-4 font-sans">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main White Container */}
@@ -421,7 +421,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                     </div>
 
                     <div className="p-5 pt-0 mt-auto">
-                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
+                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline  transition-colors">
                         <span>{card.linkText}</span>
                         <ChevronRight className="ml-0.5" />
                       </button>
@@ -483,7 +483,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                     </div>
 
                     <div className="p-5 pt-0 mt-auto">
-                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
+                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline  transition-colors">
                         <span>{card.linkText}</span>
                         <ChevronRight className="ml-0.5" />
                       </button>
@@ -537,7 +537,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                   <div className="p-5 pt-0 mt-auto">
                     <button
                       onClick={card.linkAction}
-                      className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors"
+                      className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline  transition-colors"
                     >
                       <span>{card.linkText}</span>
                       <ChevronRight className="ml-0.5" />
@@ -594,7 +594,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                     </div>
 
                     <div className="p-5 pt-0 mt-auto">
-                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
+                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline  transition-colors">
                         <span>{card.linkText}</span>
                         <ChevronRight className=" ml-0.5" />
                       </button>
@@ -642,7 +642,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                       </div>
                     </div>
                     <div className="p-5 pt-0 mt-auto">
-                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors">
+                      <button className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline  transition-colors">
                         <span>{card.linkText}</span>
                         <ChevronRight className=" ml-0.5" />
                       </button>
@@ -700,7 +700,7 @@ export const FeaturedContainer: React.FC<FeaturedContainerProps> = ({ onOpenCalc
                   <div className="p-5 pt-0 mt-auto">
                     <button
                       onClick={'linkAction' in card ? card.linkAction : undefined}
-                      className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline hover:text-[#EC111A] transition-colors"
+                      className="inline-flex items-center text-balance font-semibold text-[#006699] hover:underline  transition-colors"
                     >
                       <span>{card.linkText}</span>
                       <ChevronRight className=" ml-0.5" />
